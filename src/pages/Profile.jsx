@@ -93,32 +93,6 @@ function Profile()
             setListings(updatedListings)
             toast.success('Successfully deleted listing')
         }
-
-        const storage = getStorage();
-    
-        const imagesToDelete = listings.filter(
-            (listing) => listing.id === listingId
-        );
-    
-        const imagesArray = imagesToDelete[0].data.imageUrls;
-    
-        imagesArray.forEach( (urlToDelete) =>  {
-
-            let fileName = urlToDelete.split('/').pop().split('#')[0].split('?')[0];
-            fileName = fileName.replace('%2F', '/');
-    
-            const imageToDeleteRef = ref(storage, `${fileName}`);
-            
-            deleteObject(imageToDeleteRef)
-            .then(() => {
-                toast.success('Image deleted');
-            })
-            .catch((error) => {
-                toast.error('Failed to delete images');
-                console.log(error)
-            });
-
-        });
     }
 
     return (
